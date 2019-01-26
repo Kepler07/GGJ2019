@@ -33,29 +33,33 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
 
     private void getInputPressed()
     {
-        if (Input.GetKeyUp("a"))
+        if (Input.GetKeyUp(KeyCode.JoystickButton0))
         {
-            _inputPressed = "a";
+            _inputPressed = KeyCode.JoystickButton0.ToString();
         }
 
-        if (Input.GetKeyUp("z"))
+        if (Input.GetKeyUp(KeyCode.JoystickButton1))
         {
-            _inputPressed = "z";
+            _inputPressed = KeyCode.JoystickButton1.ToString();
         }
 
-        if (Input.GetKeyUp("e"))
+        if (Input.GetKeyUp(KeyCode.JoystickButton2))
         {
-            _inputPressed = "e";
+            _inputPressed = KeyCode.JoystickButton2.ToString();
+        }
+        
+        if (Input.GetKeyUp(KeyCode.JoystickButton3))
+        {
+            _inputPressed = KeyCode.JoystickButton3.ToString();
         }
     }
 
-    private void EnableInput()
+    private void EnableInput(float timeToWait)
     {
         if(!_isInitialize) throw new Exception("You have to initialize the RythmInputManager before starting it tard");
         if (_callback != null)
         {
-            Debug.Log("GROW BALLOON");
-            _callback.growUPCurrentMonster(_inputArray[_currentIndexInInputArray]);
+            _callback.growUPCurrentMonster(_inputArray[_currentIndexInInputArray], timeToWait);
         }
         _hasToCheckInput = true;
     }
@@ -71,13 +75,7 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
         {
             _callback.inputFailed(_inputArray[_currentIndexInInputArray]);
         }
-        
-        if (_callback != null)
-        {
-            Debug.Log("DOWN BALLOON");
-            _callback.growDownMonster(_inputArray[_currentIndexInInputArray]);
-        }
-
+       
         _hasFindInput = false;
         _hasToCheckInput = false;
         _inputPressed = null;
@@ -91,13 +89,6 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
     public void SetCallback(IInputManagerCallback callback)
     {
         _callback = callback;
-    }
-
-    public void StopRepeatingFunctions()
-    {
-        DisableInput();
-        _callback = null;
-        _currentIndexInInputArray = 0;
     }
 
     private void checkInput()
@@ -141,9 +132,9 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
         }
     }
 
-    public void beforeSound()
+    public void beforeSound(float timeToWait)
     {
-        EnableInput();
+        EnableInput(timeToWait);
     }
 
     public void afterSound()

@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 
 public class MonsterFeedBack : MonoBehaviour
@@ -22,13 +23,15 @@ public class MonsterFeedBack : MonoBehaviour
         return inputKey;
     }
 
-    public void sizeUp()
+    public void sizeUp(float timeToWait)
     {
         transform.localScale += new Vector3(0.5f,0.5f,0.5f);
+        StartCoroutine(sizeDown(timeToWait));
     }
 
-    public void sizeDown()
+    IEnumerator sizeDown(float timeToWait)
     {
+        yield return new WaitForSeconds(timeToWait);
         transform.localScale -= new Vector3(0.5f,0.5f,0.5f);
     }
 

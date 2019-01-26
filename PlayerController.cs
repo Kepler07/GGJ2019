@@ -101,25 +101,11 @@ public class PlayerController : MonoBehaviour
 
     public GameObject objectToFollow()
     {
-        if (monsterList.Count == 0)
-        {
-            return followDuCul;
-        }
-
-        else
-        {
-            return monsterList.Last();
-        }
-    }
-
-    public string[] getInputArray()
-    {
-        return inputList.ToArray();
+        return monsterList.Count == 0 ? followDuCul : monsterList.Last();
     }
 
     public List<GameObject> MonsterList
     {
         get { return monsterList; }
-        set { monsterList = value; }
     }
 }

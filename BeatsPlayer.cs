@@ -39,12 +39,12 @@ public class BeatsPlayer : MonoBehaviour
     
     private void playSoundRepeating()
     {
-        beforeSound();
         StartCoroutine("playSoundCoroutine");
     }
 
     private IEnumerator playSoundCoroutine()
     {
+        beforeSound(timeBeforeValidate + timeAfterValidate);
         yield return new WaitForSecondsRealtime(timeBeforeValidate);
         if (audioSource != null && beat != null)
         {
@@ -54,11 +54,11 @@ public class BeatsPlayer : MonoBehaviour
         afterSound();
     }
 
-    private void beforeSound()
+    private void beforeSound(float timeToWait)
     {
         if (_callback != null)
         {
-            _callback.beforeSound();
+            _callback.beforeSound(timeToWait);
         }
     }
 

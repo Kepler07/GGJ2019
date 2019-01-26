@@ -88,22 +88,13 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
                 Debug.Log("FAILED");
         }
 
-        public void growUPCurrentMonster(string keyToGrowUp)
+        public void growUPCurrentMonster(string keyToGrowUp, float timeToWait)
         {
                 
                 var script = getCurrentMonsterFeedBackScript(keyToGrowUp);
                 if (script != null)
                 {
-                        script.sizeUp();
-                }
-        }
-        
-        public void growDownMonster(string keyToGrowDown)
-        {
-                var script = getCurrentMonsterFeedBackScript(keyToGrowDown);
-                if (script != null)
-                {
-                        script.sizeDown();
+                        script.sizeUp(timeToWait);
                 }
         }
 

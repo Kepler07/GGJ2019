@@ -1,5 +1,5 @@
 public interface IBeatsCallback
 {
-    void beforeSound();
+    void beforeSound(float timeToWait);
     void afterSound();
 }
