@@ -1,7 +1,8 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 
-public class RythmInputManager : MonoBehaviour
+public class RythmInputManager : MonoBehaviour, IBeatsCallback
 {
     private IInputManagerCallback _callback;
     private string _inputPressed;
@@ -56,7 +57,6 @@ public class RythmInputManager : MonoBehaviour
             _callback.growUPCurrentMonster(_inputArray[_currentIndexInInputArray]);
         }
         _hasToCheckInput = true;
-        Debug.Log("Key : " + _inputArray[_currentIndexInInputArray]);
     }
 
     private void DisableInput()
@@ -85,22 +85,14 @@ public class RythmInputManager : MonoBehaviour
             _currentIndexInInputArray = 0;
         }
     }
-
-    public void InvokeEnableInput(float beatrate, IInputManagerCallback callback)
+    
+    public void SetCallback(IInputManagerCallback callback)
     {
         _callback = callback;
-        InvokeRepeating("EnableInput", 0f, beatrate);
-    }
-
-    public void InvokeDisableInput(float beatrate)
-    {
-        InvokeRepeating("DisableInput", 0f, beatrate);
     }
 
     public void StopRepeatingFunctions()
     {
-        CancelInvoke("EnableInput");
-        CancelInvoke("DisableInput");
         DisableInput();
         _callback = null;
         _currentIndexInInputArray = 0;
@@ -145,5 +137,15 @@ public class RythmInputManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void beforeSound()
+    {
+        EnableInput();
+    }
+
+    public void afterSound()
+    {
+        DisableInput();
     }
 }

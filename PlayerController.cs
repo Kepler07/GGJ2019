@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject followDuCul;
     public float speed;
     public float brake;
     public int MAX_MONSTERS;
@@ -19,12 +21,19 @@ public class PlayerController : MonoBehaviour
 
     private float moveHorizontal;
     private float moveVertical;
-
+    private IPlayerCallback _callback;
+    
+    
     private List<GameObject> monsterList = new List<GameObject>();
     private List<string> inputList = new List<string>();
 
     public PlayerController()
     {
+    }
+
+    public void setCallback(IPlayerCallback callback)
+    {
+        _callback = callback;
     }
 
     // Use this for initialization
@@ -78,19 +87,27 @@ public class PlayerController : MonoBehaviour
         if (!monsterList.Contains(monster) && monsterList.Count <= MAX_MONSTERS - 1)
         {
             monsterList.Add(monster);
-            inputList.Add(monster.GetComponent<MonsterController>().whichInputButton());
-
+            inputList.Add(getMonsterInput(monster));
+            if (_callback != null)
+            {
+                _callback.onMonsterAdded(monsterList);    
+            }
             return true;
         }
 
         return false;
     }
 
+    public string getMonsterInput(GameObject monster)
+    {
+        return monster.GetComponent<MonsterController>().whichInputButton();
+    }
+
     public GameObject objectToFollow()
     {
         if (monsterList.Count == 0)
         {
-            return GetComponentInChildren<Transform>().gameObject;
+            return followDuCul;
         }
 
         else

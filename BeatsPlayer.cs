@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -7,34 +8,55 @@ public class BeatsPlayer : MonoBehaviour
     public float volumeScale = 1f;
     
     private AudioSource audioSource;
-    private IBeatsPlayerCallback _callback;
+    private IBeatsCallback _callback;
+    private float timeBeforeValidate = 0.1f;
+    private float timeAfterValidate = 0.1f;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void InvokePlaySound(float beatrate, IBeatsPlayerCallback callback)
+    public void InvokePlaySound(float beatrate)
     {
-        _callback = callback;
-        InvokeRepeating("playSound", 0f, beatrate);
+        if (!IsInvoking("playSoundRepeating"))
+        {
+            InvokeRepeating("playSoundRepeating", 0f, beatrate);    
+        }
     }
 
-    public void StopRepeating()
+    public void SetCallback(IBeatsCallback callback, float timeBefore, float timeAfter)
+    {
+        _callback = callback;
+        timeBeforeValidate = timeBefore;
+        timeAfterValidate = timeAfter;
+    }
+
+    public void RemoveCallback()
     {
         _callback = null;
-        CancelInvoke("playSound");
     }
     
-    private void playSound()
+    private void playSoundRepeating()
     {
+        StartCoroutine("playSoundCoroutine");
+    }
+
+    private IEnumerator playSoundCoroutine()
+    {
+        if (_callback != null)
+        {
+            _callback.beforeSound();
+        }
+        yield return new WaitForSecondsRealtime(timeBeforeValidate);
         if (audioSource != null && beat != null)
         {
             audioSource.PlayOneShot(beat, volumeScale);
-            if (_callback != null)
-            {
-                _callback.beatsPlayed();
-            }
+        }
+        yield return new WaitForSecondsRealtime(timeAfterValidate);
+        if (_callback != null)
+        {
+            _callback.afterSound();
         }
     }
     

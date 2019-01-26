@@ -3,13 +3,23 @@ using UnityEngine;
 
 public class MonsterFeedBack : MonoBehaviour
 {
-    public string keyString;
     private ParticleSystem _particleSystem;
+    
+    private string inputKey = "";
 
     private void Start()
     {
         _particleSystem = GetComponentInChildren<ParticleSystem>();
-        
+    }
+
+    public void setInputKey(string key)
+    {
+        inputKey = key;
+    }
+
+    public string GetInputKey()
+    {
+        return inputKey;
     }
 
     public void sizeUp()

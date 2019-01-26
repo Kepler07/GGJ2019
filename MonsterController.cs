@@ -27,8 +27,9 @@ public class MonsterController : MonoBehaviour
     void Start()
     {
         color = possibleColors[UnityEngine.Random.Range(0, possibleColors.Length)];
-
-        this.GetComponent<Renderer>().material.color = color;
+        var monsterFeedBack = GetComponentInParent<MonsterFeedBack>();
+        monsterFeedBack.setInputKey(whichInputButton());
+        GetComponentInChildren<Renderer>().material.color = color;
     }
 
 // Update is called once per frame
@@ -36,6 +37,7 @@ public class MonsterController : MonoBehaviour
     {
         if (followPlayer && Vector3.Distance(transform.position, player.transform.position) > minDistance)
         {
+            Debug.Log("FOLLOW");
             transform.position =
                 Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
