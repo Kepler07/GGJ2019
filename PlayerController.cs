@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject followDuCul;
-    public float speed;
-    public float brake;
-    public int MAX_MONSTERS;
+    public float speed = 8f;
+    public float brake = 10f;
+    public int MAX_MONSTERS = 4;
 
     private Rigidbody rb;
 
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
             rb.velocity = (movement * speed);
-            transform.rotation = Quaternion.LookRotation(-rb.velocity);
+            transform.rotation = Quaternion.LookRotation(rb.velocity);
         }
         else
         {
