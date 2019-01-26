@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
-    public float brake;
-    public int MAX_MONSTERS;
+    public float speed = 8f;
+    public float brake = 10f;
+    public int MAX_MONSTERS = 4;
 
     private Rigidbody rb;
 
