@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
             rb.velocity = (movement * speed);
-            transform.rotation = Quaternion.LookRotation(-rb.velocity);
+            transform.rotation = Quaternion.LookRotation(rb.velocity);
         }
         else
         {
