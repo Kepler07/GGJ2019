@@ -1,11 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 [RequireComponent(typeof(BeatsPlayer))]
 [RequireComponent(typeof(RythmInputManager))]
 public class GameManager : MonoBehaviour, IInputManagerCallback, IBeatsPlayerCallback
 {
-        
+        public List<GameObject> monsterList;
         public float beatRate = 1f;
         public float timeAfterToValidate = 0.5f;
         public float timeBeforeToValidate = 0.2f;
@@ -13,6 +15,7 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IBeatsPlayerCal
         private BeatsPlayer _beatsPlayer;
         private RythmInputManager _rythmInputManager;
         private bool isStarted = false;
+        private string[] inputArray = {"a","z","e", ""};
 
         private void Start()
         {
@@ -45,7 +48,8 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IBeatsPlayerCal
         private void StartGamePlay()
         {
                 StartCoroutine("startPlayCoroutine");
-                _rythmInputManager.setInputList(new []{"a","z","e", ""});
+                
+                _rythmInputManager.setInputList(inputArray);
         }
 
         private IEnumerator startPlayCoroutine()
@@ -79,6 +83,8 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IBeatsPlayerCal
         public void inputSuccess(string input)
         {
                 Debug.Log("You won 5 points");
+                popMonster(input);
+
         }
 
         public void inputFailed(string input)
@@ -89,5 +95,39 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IBeatsPlayerCal
         public void beatsPlayed()
         {
                 //Debug.Log("Beats Played");
+        }
+
+        public void growUPCurrentMonster(string keyToGrowUp)
+        {
+                var script = getCurrentMonsterFeedBackScript(keyToGrowUp);
+                if (script != null)
+                {
+                        script.sizeUp();
+                }
+        }
+        
+        public void growDownMonster(string keyToGrowDown)
+        {
+                var script = getCurrentMonsterFeedBackScript(keyToGrowDown);
+                if (script != null)
+                {
+                        script.sizeDown();
+                }
+        }
+
+        public void popMonster(string keyToPop)
+        {
+                var script = getCurrentMonsterFeedBackScript(keyToPop);
+                if (script != null)
+                {
+                        script.pop();
+                }
+        }
+
+        private MonsterFeedBack getCurrentMonsterFeedBackScript(string key)
+        {
+                if (monsterList == null) return null;
+                var monsterToGrowUp = monsterList.Find(item => item.GetComponent<MonsterFeedBack>().keyString == key);
+                return monsterToGrowUp == null ? null : monsterToGrowUp.GetComponent<MonsterFeedBack>();
         }
 }

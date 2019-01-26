@@ -51,6 +51,10 @@ public class RythmInputManager : MonoBehaviour
     private void EnableInput()
     {
         if(!_isInitialize) throw new Exception("You have to initialize the RythmInputManager before starting it tard");
+        if (_callback != null)
+        {
+            _callback.growUPCurrentMonster(_inputArray[_currentIndexInInputArray]);
+        }
         _hasToCheckInput = true;
         Debug.Log("Key : " + _inputArray[_currentIndexInInputArray]);
     }
@@ -65,6 +69,11 @@ public class RythmInputManager : MonoBehaviour
         else if(!_hasFindInput && _callback != null)
         {
             _callback.inputFailed(_inputArray[_currentIndexInInputArray]);
+        }
+        
+        if (_callback != null)
+        {
+            _callback.growDownMonster(_inputArray[_currentIndexInInputArray]);
         }
 
         _hasFindInput = false;
