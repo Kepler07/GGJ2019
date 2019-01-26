@@ -54,6 +54,7 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
         if(!_isInitialize) throw new Exception("You have to initialize the RythmInputManager before starting it tard");
         if (_callback != null)
         {
+            Debug.Log("GROW BALLOON");
             _callback.growUPCurrentMonster(_inputArray[_currentIndexInInputArray]);
         }
         _hasToCheckInput = true;
@@ -73,6 +74,7 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
         
         if (_callback != null)
         {
+            Debug.Log("DOWN BALLOON");
             _callback.growDownMonster(_inputArray[_currentIndexInInputArray]);
         }
 

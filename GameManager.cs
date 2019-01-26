@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
 
         public void growUPCurrentMonster(string keyToGrowUp)
         {
+                
                 var script = getCurrentMonsterFeedBackScript(keyToGrowUp);
                 if (script != null)
                 {

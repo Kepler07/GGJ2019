@@ -12,7 +12,7 @@ public class MonsterController : MonoBehaviour
 
     private bool followPlayer = false;
     private GameObject player;
-    
+
     private Color[] possibleColors =
     {
         Color.green, // A
@@ -37,7 +37,6 @@ public class MonsterController : MonoBehaviour
     {
         if (followPlayer && Vector3.Distance(transform.position, player.transform.position) > minDistance)
         {
-            Debug.Log("FOLLOW");
             transform.position =
                 Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
@@ -49,7 +48,7 @@ public class MonsterController : MonoBehaviour
         {
             var playerController = other.gameObject.GetComponent<PlayerController>();
             player = playerController.objectToFollow();
-            if (playerController.addMonsterToList(this.gameObject))
+            if (playerController.addMonsterToList(gameObject))
                 followPlayer = true;
         }
     }
@@ -57,12 +56,12 @@ public class MonsterController : MonoBehaviour
     public string whichInputButton()
     {
         if (color == possibleColors[0]) // A
-            return "joystick button 0";
-        else if (color == possibleColors[1]) // B
-            return "joystick button 1";
-        else if (color == possibleColors[2]) // X
-            return "joystick button 2";
-        else // Y
-            return "joystick button 3";
+            return KeyCode.JoystickButton0.ToString();
+        if (color == possibleColors[1]) // B
+            return KeyCode.JoystickButton1.ToString();
+        if (color == possibleColors[2]) // X
+            return KeyCode.JoystickButton2.ToString();
+        // Y
+        return KeyCode.JoystickButton3.ToString();
     }
 }

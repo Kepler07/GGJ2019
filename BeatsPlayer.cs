@@ -39,21 +39,31 @@ public class BeatsPlayer : MonoBehaviour
     
     private void playSoundRepeating()
     {
+        beforeSound();
         StartCoroutine("playSoundCoroutine");
     }
 
     private IEnumerator playSoundCoroutine()
     {
-        if (_callback != null)
-        {
-            _callback.beforeSound();
-        }
         yield return new WaitForSecondsRealtime(timeBeforeValidate);
         if (audioSource != null && beat != null)
         {
             audioSource.PlayOneShot(beat, volumeScale);
         }
         yield return new WaitForSecondsRealtime(timeAfterValidate);
+        afterSound();
+    }
+
+    private void beforeSound()
+    {
+        if (_callback != null)
+        {
+            _callback.beforeSound();
+        }
+    }
+
+    private void afterSound()
+    {
         if (_callback != null)
         {
             _callback.afterSound();
