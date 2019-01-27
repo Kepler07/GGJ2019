@@ -5,8 +5,9 @@ using UnityEngine;
 public class MonsterFeedBack : MonoBehaviour
 {
     private ParticleSystem _particleSystem;
-    
+
     private string inputKey = "";
+    private bool _hasAlreadyPopUp = false;
 
     private void Start()
     {
@@ -32,14 +33,16 @@ public class MonsterFeedBack : MonoBehaviour
     IEnumerator sizeDown(float timeToWait)
     {
         yield return new WaitForSeconds(timeToWait);
+        _hasAlreadyPopUp = false;
         transform.localScale -= new Vector3(0.5f,0.5f,0.5f);
     }
 
     public void pop()
     {
-        if (_particleSystem != null)
+        if (_particleSystem != null && !_hasAlreadyPopUp)
         {
-            _particleSystem.Play();    
+            _hasAlreadyPopUp = true;
+            _particleSystem.Play();
         }
     }
 }

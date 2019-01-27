@@ -6,4 +6,6 @@ public interface IInputManagerCallback
 
     void growUPCurrentMonster(string keyToGrowUp, float timeToWait);
 
+    void popCurrentMonster(string input);
+
 }

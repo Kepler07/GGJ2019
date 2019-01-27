@@ -78,9 +78,17 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
 
         public void inputSuccess(string input)
         {
+<<<<<<< HEAD
                 //Debug.Log("You won 5 points");
                 popMonster(input);
+=======
+                Debug.Log("You won 5 points");
+        }
+>>>>>>> 603a5053d5c72b7be393b7fc78526a5bc57ec631
 
+        public void popCurrentMonster(string input)
+        {
+                popMonster(input);
         }
 
         public void inputFailed(string input)
