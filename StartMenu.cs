@@ -7,31 +7,46 @@ public class StartMenu : MonoBehaviour
 
 	public Button startButton;
 	public Button quitButton;
-	public Button creditsButton;
 	public AudioSource audioSource;
 	public string playScene = "MainLevel";
-	public string creditsScene = "creditsScene";
+	public Font menuFont;
+	public AudioClip menuClip;
+	public AudioClip playClip;
 	
 	// Use this for initialization
 	private void Start () {
 		startButton.onClick.AddListener(startGame);
 		quitButton.onClick.AddListener(quitGame);
-		creditsButton.onClick.AddListener(creditsGame);
+
+		startButton.GetComponentInChildren<Text>().font = menuFont;
+		
+		GameObject go = GameObject.Find("multisceneaudio");
+		if (go != null)
+		{
+			audioSource = go.GetComponent<AudioSource>();
+		}
+		
+		audioSource.clip = menuClip;
+		audioSource.Play();
+		audioSource.name = "multisceneaudio";
+		DontDestroyOnLoad(audioSource);
 	}
 
 
 	public void startGame()
 	{
 		Debug.Log("Start clicked");
+
+		audioSource.clip = playClip;
 		audioSource.Play();
 		Invoke("loadSceneGame", 1);
-	}
 
-	public void creditsGame()
+}
+	
+	private void quitGame()
 	{
-		Debug.Log("Credits clicked");
-		audioSource.Play();
-		Invoke("loadSceneCredit", 1);
+		Debug.Log("Quit clicked");
+		Application.Quit();
 	}
 	
 	private void loadSceneGame()
@@ -39,15 +54,5 @@ public class StartMenu : MonoBehaviour
 		SceneManager.LoadScene(playScene, LoadSceneMode.Single);
 	}
 
-	private void loadSceneCredit(){
-		SceneManager.LoadScene(creditsScene, LoadSceneMode.Single);
-	}
 
-	private void quitGame()
-	{
-		Debug.Log("Quit clicked");
-		Application.Quit();
-	}
-	
-	
 }

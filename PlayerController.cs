@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private float moveHorizontal;
     private float moveVertical;
     private IPlayerCallback _callback;
+    private bool isFinished = false;
     
     
     private List<GameObject> monsterList = new List<GameObject>();
@@ -30,6 +31,11 @@ public class PlayerController : MonoBehaviour
     public void setCallback(IPlayerCallback callback)
     {
         _callback = callback;
+    }
+
+    public void setIsFinish()
+    {
+        isFinished = true;
     }
 
     // Use this for initialization
@@ -53,22 +59,25 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (inputApplied)
+        if (!isFinished)
         {
-            Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-            rb.velocity = (movement * speed);
-            transform.rotation = Quaternion.LookRotation(rb.velocity);
-        }
-        else
-        {
-            curSpeed = rb.velocity.magnitude;
-            float newSpeed = curSpeed - brake * Time.deltaTime;
-            if (newSpeed < 0)
+            if (inputApplied)
             {
-                newSpeed = 0;
+                Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+                rb.velocity = (movement * speed);
+                transform.rotation = Quaternion.LookRotation(rb.velocity);
             }
+            else
+            {
+                curSpeed = rb.velocity.magnitude;
+                float newSpeed = curSpeed - brake * Time.deltaTime;
+                if (newSpeed < 0)
+                {
+                    newSpeed = 0;
+                }
 
-            rb.velocity = rb.velocity.normalized * newSpeed;
+                rb.velocity = rb.velocity.normalized * newSpeed;
+            }    
         }
     }
 

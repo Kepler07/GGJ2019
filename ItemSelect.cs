@@ -8,18 +8,15 @@ public class ItemSelect : MonoBehaviour
 
 	public Button startButton;
 	public Button quitButton;
-	public Button creditsButton;
 
 	private Color startColor;
 	private Color quitColor;
-	private Color creditsColor;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		startColor = startButton.GetComponentInChildren<Text>().color;
 		quitColor = quitButton.GetComponentInChildren<Text>().color;
-		creditsColor = creditsButton.GetComponentInChildren<Text>().color;
 
 	}
 	
@@ -30,31 +27,32 @@ public class ItemSelect : MonoBehaviour
 	
 	public void onSelectStart()
 	{
-		startButton.GetComponentInChildren<Text>().color = Color.red;
+		Color newColor = new Color(startColor.r, startColor.g, startColor.b, 1);
+		startButton.GetComponentInChildren<Text>().color = newColor;
+		startButton.GetComponentInChildren<Text>().fontSize += 10;
+
 	}
 	
 	public void onDeselectStart()
 	{
 		startButton.GetComponentInChildren<Text>().color = startColor;
+		startButton.GetComponentInChildren<Text>().fontSize -= 10;
+
 	}
 		
 	public void onSelectQuit()
 	{
-		quitButton.GetComponentInChildren<Text>().color = Color.red;
+		Color newColor = new Color(quitColor.r, quitColor.g, quitColor.b, 1);
+		quitButton.GetComponentInChildren<Text>().color = newColor;
+		quitButton.GetComponentInChildren<Text>().fontSize += 10;
+
 	}
 	
 	public void onDeselectQuit()
 	{
 		quitButton.GetComponentInChildren<Text>().color = quitColor;
-	}
-		
-	public void onSelectCredits()
-	{
-		creditsButton.GetComponentInChildren<Text>().color = Color.red;
+		quitButton.GetComponentInChildren<Text>().fontSize -= 10;
+
 	}
 	
-	public void onDeselectCredits()
-	{
-		creditsButton.GetComponentInChildren<Text>().color = creditsColor;
-	}
 }
