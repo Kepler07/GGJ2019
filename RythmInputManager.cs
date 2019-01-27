@@ -34,22 +34,22 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
 
     private void getInputPressed()
     {
-        if (Input.GetKeyUp(KeyCode.JoystickButton0))
+        if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
             _inputPressed = KeyCode.JoystickButton0.ToString();
         }
 
-        if (Input.GetKeyUp(KeyCode.JoystickButton1))
+        if (Input.GetKeyDown(KeyCode.JoystickButton1))
         {
             _inputPressed = KeyCode.JoystickButton1.ToString();
         }
 
-        if (Input.GetKeyUp(KeyCode.JoystickButton2))
+        if (Input.GetKeyDown(KeyCode.JoystickButton2))
         {
             _inputPressed = KeyCode.JoystickButton2.ToString();
         }
         
-        if (Input.GetKeyUp(KeyCode.JoystickButton3))
+        if (Input.GetKeyDown(KeyCode.JoystickButton3))
         {
             _inputPressed = KeyCode.JoystickButton3.ToString();
         }
@@ -122,6 +122,10 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
                     _hasFindInput = true;
                     _hasToCheckInput = false;
                     _inputPressed = null;
+                    if (_callback != null)
+                    {
+                        _callback.popCurrentMonster(_inputArray[_currentIndexInInputArray]);
+                    }
                 }
                 else
                 {
