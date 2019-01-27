@@ -37,11 +37,11 @@ public class ScoreZoneController : MonoBehaviour
 
 	private float calculateScore(List<GameObject> monsterList)
 	{		
-		List<Color> colorList = new List<Color>();
+		List<MonsterColor> colorList = new List<MonsterColor>();
 
 		foreach (var monster in monsterList)
 		{
-			Color monsterColor = monster.GetComponent<Renderer>().material.color;
+			MonsterColor monsterColor = monster.GetComponent<MonsterController>().color;
 			if (!colorList.Contains(monsterColor))
 				colorList.Add(monsterColor);
 		}
