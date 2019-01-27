@@ -7,29 +7,21 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
+
+    public MonsterColor color;
+    
     private float speed = 12.0f;
     private float minDistance = 1.5f;
 
     private bool followPlayer = false;
     private GameObject player;
 
-    private Color[] possibleColors =
-    {
-        Color.green, // A
-        Color.red, // B
-        Color.blue, // X
-        Color.yellow // Y
-    };
-
-    private Color color;
 
 // Use this for initialization
     void Start()
     {
-        color = possibleColors[UnityEngine.Random.Range(0, possibleColors.Length)];
         var monsterFeedBack = GetComponentInParent<MonsterFeedBack>();
         monsterFeedBack.setInputKey(whichInputButton());
-        GetComponentInChildren<Renderer>().material.color = color;
     }
 
 // Update is called once per frame
@@ -55,13 +47,26 @@ public class MonsterController : MonoBehaviour
 
     public string whichInputButton()
     {
-        if (color == possibleColors[0]) // A
-            return KeyCode.JoystickButton0.ToString();
-        if (color == possibleColors[1]) // B
-            return KeyCode.JoystickButton1.ToString();
-        if (color == possibleColors[2]) // X
-            return KeyCode.JoystickButton2.ToString();
-        // Y
-        return KeyCode.JoystickButton3.ToString();
+        switch (color)
+        {
+            case MonsterColor.GREEN:
+                return KeyCode.JoystickButton0.ToString();
+            case MonsterColor.RED:
+                return KeyCode.JoystickButton1.ToString();
+            case MonsterColor.BLUE:
+                return KeyCode.JoystickButton2.ToString();
+            case MonsterColor.YELLOW:
+                return KeyCode.JoystickButton3.ToString();
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
+}
+
+public enum MonsterColor
+{
+    GREEN,
+    RED,
+    BLUE,
+    YELLOW
 }

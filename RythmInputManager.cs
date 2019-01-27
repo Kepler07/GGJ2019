@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -93,7 +94,7 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
 
     private void checkInput()
     {
-        var currentInputTested = _inputArray[_currentIndexInInputArray];
+        var currentInputTested = _inputArray[_currentIndexInInputArray].Split('_').First();
 
         if (currentInputTested == "")
         {

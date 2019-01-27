@@ -110,7 +110,12 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
         private MonsterFeedBack getCurrentMonsterFeedBackScript(string key)
         {
                 if (monsterList == null) return null;
-                var monsterToGrowUp = monsterList.Find(item => item.GetComponentInParent<MonsterFeedBack>().GetInputKey() == key);
+                var monsterToGrowUp = monsterList.Find(item =>
+                {
+                        var index = monsterList.IndexOf(item);
+                        var inputKey = item.GetComponent<MonsterFeedBack>().GetInputKey();
+                        return inputKey + "_" + index == key;
+                });
                 return monsterToGrowUp == null ? null : monsterToGrowUp.GetComponentInParent<MonsterFeedBack>();
         }
 
@@ -125,7 +130,8 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
                         StopGamePlay();
                 }
                 monsterList = newMonsterList;
-                inputArray = monsterList.Select(item => { return _playerController.getMonsterInput(item); }).ToList();
+                
+                inputArray = monsterList.Select((item, index) => { return _playerController.getMonsterInput(item) + "_" + index; }).ToList();
                 inputArray.Add("");
                 StartGamePlay();
         }
