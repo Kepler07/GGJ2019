@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MonsterFeedBack : MonoBehaviour
 {
+    
+    public AudioClip soundToValidate;
+
+    private AudioSource audioSource;
     private ParticleSystem _particleSystem;
 
     private string inputKey = "";
@@ -12,6 +16,7 @@ public class MonsterFeedBack : MonoBehaviour
     private void Start()
     {
         _particleSystem = GetComponentInChildren<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void setInputKey(string key)
@@ -43,6 +48,12 @@ public class MonsterFeedBack : MonoBehaviour
         {
             _hasAlreadyPopUp = true;
             _particleSystem.Play();
+            PlaySoundValidation();
         }
+    }
+
+    public void PlaySoundValidation()
+    {
+        audioSource.PlayOneShot(soundToValidate);
     }
 }
