@@ -5,6 +5,8 @@ using UnityEditor.AppleTV;
 using UnityEngine;
 using UnityEngine.UI;
 
+// TODO: apply a multiplier at the end of the game based on the player's HP gauge
+
 public class ScoreZoneController : MonoBehaviour
 {
 
@@ -76,5 +78,10 @@ public class ScoreZoneController : MonoBehaviour
 		if (nbColors == 1)
 			return 1;
 		return Mathf.Pow(powFactor, nbColors);
+	}
+
+	public void finalizeScore(int finalHealth)
+	{
+		totalScore += Mathf.Round((totalScore * (float)finalHealth / 100f)/ 50.0f) * 50;
 	}
 }

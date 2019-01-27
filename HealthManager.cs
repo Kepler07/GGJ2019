@@ -7,9 +7,10 @@ public class HealthManager : MonoBehaviour
 {
 	public Slider slider;
 	public int baseHealth = 10;
+	public int maxHealth = 100;
 	private int currentHealth;
 	private int consecutiveSuccess;
-	public int regenThreshold = 4;
+	public int regenThreshold = 1;
 	
 	// Use this for initialization
 	void Start ()
@@ -27,7 +28,7 @@ public class HealthManager : MonoBehaviour
 
 	public void inputSuccess()
 	{
-		if (consecutiveSuccess >= regenThreshold)
+		if (consecutiveSuccess >= regenThreshold && currentHealth < maxHealth)
 		{
 			currentHealth++;
 			consecutiveSuccess = 0;
@@ -41,12 +42,13 @@ public class HealthManager : MonoBehaviour
 	public void inputFail()
 	{
 		consecutiveSuccess = 0;
-		currentHealth--;
+		if (currentHealth > 0)
+			currentHealth--;
 	}
 
 	public bool isDead()
 	{
-		return currentHealth == 0;
+		return currentHealth <= 0;
 	}
 
 	public void resetHealth()
