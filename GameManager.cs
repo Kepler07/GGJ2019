@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
 
         public GameManager()
         {
+                
+                
                 inputArray = new List<string> {""};
         }
 
@@ -156,5 +158,10 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
                 _playerController.setIsFinish();
                 gamePlayCanvas.SetActive(false);
                 endGameCanvas.SetActive(true);
+        }
+
+        public int getCurrentHealth()
+        {
+                return _healthManager.getFinalhealth();
         }
 }

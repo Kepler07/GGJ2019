@@ -18,6 +18,8 @@ public class HealthManager : MonoBehaviour
 		currentHealth = baseHealth;
 		consecutiveSuccess = 0;
 		slider.maxValue = baseHealth;
+		
+		gameObject.name = "healthmanager";
 	}
 	
 	// Update is called once per frame
@@ -54,5 +56,10 @@ public class HealthManager : MonoBehaviour
 	public void resetHealth()
 	{
 		currentHealth = baseHealth;
+	}
+
+	public int getFinalhealth()
+	{
+		return currentHealth;
 	}
 }

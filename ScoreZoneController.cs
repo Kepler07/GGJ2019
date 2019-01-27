@@ -13,15 +13,24 @@ public class ScoreZoneController : MonoBehaviour
 	public Text scoreUI;
 	public Text scoreEffectText;
 	public ParticleSystem scoreParticle;
+	public GameManager gameManager;
 	
 	public int baseScore = 100;
 	private float totalScore;
 	public float powFactor = 1.15f;
+
+	private HealthManager hm;
 	
 	
 	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+	{
+		gameObject.name = "scorezonecontroller";
+		GameObject go = GameObject.Find("healthmanager");
+		if (go != null)
+		{
+			hm = go.GetComponent<HealthManager>();
+		}
 	}
 	
 	// Update is called once per frame
@@ -80,8 +89,8 @@ public class ScoreZoneController : MonoBehaviour
 		return Mathf.Pow(powFactor, nbColors);
 	}
 
-	public void finalizeScore(int finalHealth)
+	public void finalizeScore()
 	{
-		totalScore += Mathf.Round((totalScore * (float)finalHealth / 100f)/ 50.0f) * 50;
+		totalScore += Mathf.Round((totalScore * (float)gameManager.getCurrentHealth() / 100f)/ 50.0f) * 50;
 	}
 }
