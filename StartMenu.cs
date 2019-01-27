@@ -9,7 +9,7 @@ public class StartMenu : MonoBehaviour
 	public Button quitButton;
 	public Button creditsButton;
 	public AudioSource audioSource;
-	public string playScene = "playScene";
+	public string playScene = "MainLevel";
 	public string creditsScene = "creditsScene";
 	
 	// Use this for initialization
