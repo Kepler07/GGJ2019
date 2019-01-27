@@ -11,7 +11,7 @@ public class MonsterController : MonoBehaviour
     public MonsterColor color;
     
     private float speed = 12.0f;
-    private float minDistance = 1.5f;
+    private float minDistance = 2.5f;
 
     private bool followPlayer = false;
     private GameObject player;
