@@ -249,6 +249,11 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 39dedeb54c5e17844a298eea78dbcb8e, type: 2}
+    - target: {fileID: 54833619125032594, guid: 867c99ad2541a884094826db6e9844f3,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114892112809344732, guid: 867c99ad2541a884094826db6e9844f3, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 867c99ad2541a884094826db6e9844f3, type: 2}
@@ -323,6 +328,11 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 39dedeb54c5e17844a298eea78dbcb8e, type: 2}
+    - target: {fileID: 54833619125032594, guid: 867c99ad2541a884094826db6e9844f3,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114892112809344732, guid: 867c99ad2541a884094826db6e9844f3, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 867c99ad2541a884094826db6e9844f3, type: 2}
@@ -463,6 +473,11 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 39dedeb54c5e17844a298eea78dbcb8e, type: 2}
+    - target: {fileID: 54833619125032594, guid: 867c99ad2541a884094826db6e9844f3,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114892112809344732, guid: 867c99ad2541a884094826db6e9844f3, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 867c99ad2541a884094826db6e9844f3, type: 2}
@@ -847,6 +862,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0222cca0a89aac84db40d64ac0e637eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseScore: 100
+  powFactor: 1.15
 --- !u!1 &664673541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,7 +1079,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!135 &698435874
 SphereCollider:
@@ -1206,6 +1223,11 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 39dedeb54c5e17844a298eea78dbcb8e, type: 2}
+    - target: {fileID: 54833619125032594, guid: 867c99ad2541a884094826db6e9844f3,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114892112809344732, guid: 867c99ad2541a884094826db6e9844f3, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 867c99ad2541a884094826db6e9844f3, type: 2}
@@ -1480,7 +1502,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!135 &1652122882
 SphereCollider:
@@ -1600,7 +1622,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!135 &1673632843
 SphereCollider:
@@ -1720,7 +1742,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!135 &1759513306
 SphereCollider:
@@ -1864,6 +1886,11 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 39dedeb54c5e17844a298eea78dbcb8e, type: 2}
+    - target: {fileID: 54833619125032594, guid: 867c99ad2541a884094826db6e9844f3,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114892112809344732, guid: 867c99ad2541a884094826db6e9844f3, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 867c99ad2541a884094826db6e9844f3, type: 2}
@@ -2069,7 +2096,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!135 &2055476701
 SphereCollider:
@@ -2159,6 +2186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8428ee29cc2f947a6f83131bc83733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followDuCul: {fileID: 0}
   speed: 8
   brake: 10
-  MAX_MONSTERS: 4
+  MAX_MONSTERS: 6
