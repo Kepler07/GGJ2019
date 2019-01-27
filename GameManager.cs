@@ -5,17 +5,21 @@ using UnityEngine;
 [RequireComponent(typeof(BeatsPlayer))]
 [RequireComponent(typeof(RythmInputManager))]
 [RequireComponent(typeof(HealthManager))]
-public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
+[RequireComponent(typeof(timerManager))]
+public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback, ITimerCallback
 {
         public float beatRate = 1f;
         public float timeAfterToValidate = 0.5f;
         public float timeBeforeToValidate = 0.2f;
         public GameObject player;
+        public GameObject gamePlayCanvas;
+        public GameObject endGameCanvas;
 
         private BeatsPlayer _beatsPlayer;
         private RythmInputManager _rythmInputManager;
         private PlayerController _playerController;
         private HealthManager _healthManager;
+        private timerManager _timerManager;
         private bool isStarted = false;
         private List<string> inputArray;
         private List<GameObject> monsterList;
@@ -31,8 +35,13 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
                 _rythmInputManager = GetComponent<RythmInputManager>();
                 _playerController = player.GetComponent<PlayerController>();
                 _healthManager = GetComponent<HealthManager>();
+                _timerManager = GetComponent<timerManager>();
                 _beatsPlayer.InvokePlaySound(beatRate);
                 _playerController.setCallback(this);
+                _timerManager.setCallback(this);
+
+                gamePlayCanvas.SetActive(true);
+                endGameCanvas.SetActive(false);
         }
 
         private void Update()
@@ -140,5 +149,12 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
                 inputArray = monsterList.Select((item, index) => { return _playerController.getMonsterInput(item) + "_" + index; }).ToList();
                 inputArray.Add("");
                 StartGamePlay();
+        }
+
+        public void onGameOver()
+        {
+                _playerController.setIsFinish();
+                gamePlayCanvas.SetActive(false);
+                endGameCanvas.SetActive(true);
         }
 }
