@@ -1,9 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.AppleTV;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreZoneController : MonoBehaviour
 {
+
+	public Text scoreUI;
+	public Text scoreEffectText;
+	public ParticleSystem scoreParticle;
+	
 	public int baseScore = 100;
 	private float totalScore;
 	public float powFactor = 1.15f;
@@ -15,8 +23,9 @@ public class ScoreZoneController : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+	{
+		scoreUI.text = "" + (int) totalScore;
 	}
 	
 	private void OnTriggerEnter(Collider other)
@@ -24,13 +33,16 @@ public class ScoreZoneController : MonoBehaviour
 		if (other.CompareTag("Player") && other.gameObject.GetComponent<PlayerController>().MonsterList.Count > 0)
 		{
 			var playerController = other.gameObject.GetComponent<PlayerController>();
-			totalScore += calculateScore(playerController.MonsterList);
-			Debug.Log("Score: " + calculateScore(playerController.MonsterList));
+			var currentScoreToAdd = calculateScore(playerController.MonsterList);
+			totalScore += currentScoreToAdd;
+			Debug.Log("Score: " + currentScoreToAdd);
 			Debug.Log("TotalScore: " + totalScore);
 			foreach (var monster in playerController.MonsterList)
 			{
 				Destroy(monster.gameObject);
 			}
+			scoreEffectText.text = "+ " + currentScoreToAdd;
+			scoreParticle.Play();
 			playerController.MonsterList.Clear();
 		}
 	}

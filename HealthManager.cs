@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
-
+	public Slider slider;
 	public int baseHealth = 10;
 	private int currentHealth;
 	private int consecutiveSuccess;
@@ -15,11 +16,13 @@ public class HealthManager : MonoBehaviour
 	{
 		currentHealth = baseHealth;
 		consecutiveSuccess = 0;
+		slider.maxValue = baseHealth;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+	{
+		slider.value = currentHealth;
 	}
 
 	public void inputSuccess()

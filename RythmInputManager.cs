@@ -13,15 +13,20 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
     private int _inputArraySize;
     private bool _isInitialize = false;
     private bool _hasFindInput = false;
+    private bool firstRun = true;
     
 
     public void setInputList(string[] inputArray)
     {
         _inputArray = inputArray; 
         _inputArraySize = inputArray.Length;
-        _currentIndexInInputArray = 0;
+        if (firstRun)
+        {
+            _currentIndexInInputArray = 0;    
+        }
         _isInitialize = true;
     }
+    
 
     private void FixedUpdate()
     {
@@ -84,7 +89,7 @@ public class RythmInputManager : MonoBehaviour, IBeatsCallback
         if (_currentIndexInInputArray > _inputArraySize - 1)
         {
             _currentIndexInInputArray = 0;
-        }
+        }    
     }
     
     public void SetCallback(IInputManagerCallback callback)

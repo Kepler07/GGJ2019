@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(BeatsPlayer))]
 [RequireComponent(typeof(RythmInputManager))]
+[RequireComponent(typeof(HealthManager))]
 public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
 {
         public float beatRate = 1f;
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
         private BeatsPlayer _beatsPlayer;
         private RythmInputManager _rythmInputManager;
         private PlayerController _playerController;
+        private HealthManager _healthManager;
         private bool isStarted = false;
         private List<string> inputArray;
         private List<GameObject> monsterList;
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
                 _beatsPlayer = GetComponent<BeatsPlayer>();
                 _rythmInputManager = GetComponent<RythmInputManager>();
                 _playerController = player.GetComponent<PlayerController>();
+                _healthManager = GetComponent<HealthManager>();
                 _beatsPlayer.InvokePlaySound(beatRate);
                 _playerController.setCallback(this);
         }
@@ -57,12 +60,12 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
         private void StartGamePlay()
         {
                 _rythmInputManager.setInputList(inputArray.ToArray());
-                StartCoroutine("startPlayCoroutine");
+                startPlayCoroutine();
         }
 
         private void startPlayCoroutine()
         {
-                StartCoroutine("gamePlayCoroutine");
+                gamePlayCoroutine();
         }
 
         private void StopGamePlay()
@@ -78,7 +81,7 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
 
         public void inputSuccess(string input)
         {
-                popMonster(input);
+                _healthManager.inputSuccess();
         }
 
         public void popCurrentMonster(string input)
@@ -88,7 +91,7 @@ public class GameManager : MonoBehaviour, IInputManagerCallback, IPlayerCallback
 
         public void inputFailed(string input)
         {
-                //Debug.Log("FAILED");
+                _healthManager.inputFail();
         }
 
         public void growUPCurrentMonster(string keyToGrowUp, float timeToWait)

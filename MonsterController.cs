@@ -31,6 +31,10 @@ public class MonsterController : MonoBehaviour
         {
             transform.position =
                 Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            
+            var targetPoint = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z) - transform.position;
+            var targetRotation = Quaternion.LookRotation (-targetPoint, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10.0f);
         }
     }
 
