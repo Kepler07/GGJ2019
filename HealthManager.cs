@@ -7,7 +7,7 @@ public class HealthManager : MonoBehaviour
 {
 	public Slider slider;
 	public int baseHealth = 10;
-	public int maxHealth = 100;
+	public int maxHealth = 50;
 	private int currentHealth;
 	private int consecutiveSuccess;
 	public int regenThreshold = 1;
